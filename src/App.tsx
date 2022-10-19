@@ -9,6 +9,7 @@ const clientId = process.env.REACT_APP_CLIENT_ID as string; // get from https://
 export default function App() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
+  const [text, setText] = useState<string>('')
 
   useEffect(() => {
     const init = async () => {
@@ -53,6 +54,7 @@ export default function App() {
     }
     const user = await web3auth.getUserInfo();
     console.log(user);
+    setText(user.email!);
   };
 
   const logout = async () => {
@@ -72,6 +74,7 @@ export default function App() {
     const rpc = new RPC(provider);
     const chainId = await rpc.getChainId();
     console.log(chainId);
+    setText(chainId);
   };
   const getAccounts = async () => {
     if (!provider) {
@@ -81,6 +84,7 @@ export default function App() {
     const rpc = new RPC(provider);
     const address = await rpc.getAccounts();
     console.log(address);
+    setText(address);
   };
 
   const getBalance = async () => {
@@ -91,6 +95,7 @@ export default function App() {
     const rpc = new RPC(provider);
     const balance = await rpc.getBalance();
     console.log(balance);
+    setText(balance);
   };
 
   const sendTransaction = async () => {
@@ -101,6 +106,7 @@ export default function App() {
     const rpc = new RPC(provider);
     const receipt = await rpc.sendTransaction();
     console.log(receipt);
+    setText(receipt);
   };
 
   const signMessage = async () => {
@@ -111,6 +117,7 @@ export default function App() {
     const rpc = new RPC(provider);
     const signedMessage = await rpc.signMessage();
     console.log(signedMessage);
+    setText(signedMessage);
   };
 
   const getPrivateKey = async () => {
@@ -121,7 +128,9 @@ export default function App() {
     const rpc = new RPC(provider);
     const privateKey = await rpc.getPrivateKey();
     console.log(privateKey);
+    setText(privateKey);
   };
+
   const loggedInView = (
     <>
       <button onClick={getUserInfo} className="card">
@@ -150,7 +159,7 @@ export default function App() {
       </button>
 
       <div id="console" style={{ whiteSpace: "pre-line" }}>
-        <p style={{ whiteSpace: "pre-line" }}></p>
+        <p style={{ whiteSpace: "pre-line" }}>{text}</p>
       </div>
     </>
   );
