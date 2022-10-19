@@ -76,6 +76,7 @@ export default function App() {
     console.log(chainId);
     setText(chainId);
   };
+  
   const getAccounts = async () => {
     if (!provider) {
       console.log("provider not initialized yet");
