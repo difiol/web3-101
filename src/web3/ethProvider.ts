@@ -18,7 +18,7 @@ const ethProvider = (provider: SafeEventEmitterProvider): IWalletProvider => {
   };
 
   const getAccounts = async () => {
-    return await web3.eth.getAccounts();
+    return web3.eth.getAccounts();
   };
 
   const getPrivateKey = async () => {
@@ -34,7 +34,7 @@ const ethProvider = (provider: SafeEventEmitterProvider): IWalletProvider => {
   };
 
   const getChainId = async () => {
-    return await web3.eth.getChainId();
+    return web3.eth.getChainId();
   };
 
   const getBalance = async () => {
@@ -52,7 +52,7 @@ const ethProvider = (provider: SafeEventEmitterProvider): IWalletProvider => {
       usdc.contractAddress
     );
     const balance = await contract.methods.balanceOf(accounts[0]).call();
-    const normalizedBalance = await web3.utils.fromWei(balance, "mwei");
+    const normalizedBalance = web3.utils.fromWei(balance, "mwei");
 
     return normalizedBalance;
   };
